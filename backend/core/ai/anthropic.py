@@ -42,12 +42,12 @@ class AnthropicAnalyzer(Analyzer):
         self.client = anthropic.Anthropic(api_key=settings.ANTHROPIC_API_KEY)
 
     def analyze(self, text: str) -> AnalysisResult:
-        # Truncate very long articles to stay within token limits
-        truncated = text[:50000] if len(text) > 50000 else text
+        # Truncate to reduce API costs
+        truncated = text[:15000] if len(text) > 15000 else text
 
         try:
             message = self.client.messages.create(
-                model="claude-3-5-sonnet-20241022",
+                model="claude-sonnet-4-5",
                 max_tokens=1024,
                 messages=[
                     {"role": "user", "content": ANALYSIS_PROMPT + truncated},
@@ -91,7 +91,7 @@ class AnthropicAnalyzer(Analyzer):
 
         try:
             message = self.client.messages.create(
-                model="claude-3-5-sonnet-20241022",
+                model="claude-sonnet-4-5",
                 max_tokens=1024,
                 system=system,
                 messages=messages,

@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 
 def build_article_context(article: Article) -> str:
     key_points = "\n".join(f"- {kp}" for kp in article.key_points)
-    raw_text = article.raw_text[:30000] if len(article.raw_text) > 30000 else article.raw_text
+    raw_text = article.raw_text[:10000] if len(article.raw_text) > 10000 else article.raw_text
 
     return (
         f"Title: {article.title}\n\n"
